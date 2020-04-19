@@ -1,13 +1,11 @@
 let input;
 let total = 0;
-input = prompt(calculate());
-
-function calculate() {
-    input = prompt('Введите число');
-    if (input !== null) {
-        total += input = Number(input);
-        return calculate();
-    } else {
+do {
+    input = prompt('Введите число:');
+    if (input === null) {
         alert(`Общая сумма чисел равна ${total}`);
+        break;
+    } else {
+        total += input = Number(input);
     }
-}
+} while (input !== null);
