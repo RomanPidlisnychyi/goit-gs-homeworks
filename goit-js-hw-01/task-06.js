@@ -6,5 +6,5 @@ do {
         alert(`Общая сумма чисел равна ${total}`);
         break;
     }
-    total += input = Number(input);
+    total += Number(input);
 } while (input !== null);
