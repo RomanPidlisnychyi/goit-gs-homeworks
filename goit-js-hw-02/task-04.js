@@ -1,9 +1,10 @@
 const formatString = function(string) {
-    if (string.length > 40) {
-        let difference = string.length - 39;
+    const maxLength = 40;
+    if (string.length > maxLength) {
+        let difference = string.length - (maxLength - 1);
 
         let arrLetters = string.split('');
-        arrLetters.splice(39, difference, '...');
+        arrLetters.splice(maxLength - 1, difference, '...');
 
         let newString = `${arrLetters.join('')}`;
 

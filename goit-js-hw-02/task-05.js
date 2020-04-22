@@ -1,8 +1,8 @@
 const checkForSpam = function(massage) {
-    let findWords =
+    return (
         massage.toLowerCase().includes('sale') ||
-        massage.toLowerCase().includes('spam');
-    return findWords;
+        massage.toLowerCase().includes('spam')
+    );
 };
 
 console.log(checkForSpam('Latest technology news')); // false

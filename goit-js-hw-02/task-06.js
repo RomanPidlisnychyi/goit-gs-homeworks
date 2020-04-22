@@ -4,8 +4,9 @@ let total = 0;
 
 do {
     input = prompt('Введите число:');
-    if (Number(input) > 0) {
-        numbers.push(Number(input));
+    const userNumber = Number(input);
+    if (userNumber > 0) {
+        numbers.push(userNumber);
     }
 } while (input !== null);
 

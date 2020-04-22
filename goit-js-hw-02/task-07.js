@@ -1,13 +1,11 @@
 const logins = ['Lucky', 'Bers', 'Pix', 'Max'];
 
 const isLoginValid = function(login) {
-    let loginValid = login.length > 3 && login.length <= 16;
-    return loginValid;
+    return login.length > 3 && login.length <= 16;
 };
 
 const isLoginUnique = function(allLogins, login) {
-    let unique = allLogins.includes(login);
-    return unique;
+    return allLogins.includes(login);
 };
 
 const addLogin = function(allLogins, login) {
