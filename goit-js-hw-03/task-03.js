@@ -1,27 +1,20 @@
 const findBestEmployee = function(employees) {
     console.log(employees);
 
-    const keys = Object.keys(employees);
-    // console.log(keys);
-
-    const values = Object.values(employees);
-    // console.log(values);
-
     let mostTasks = 0;
-    let indexOfBestEmploy;
+    let bestEmployee;
 
-    for (let value of values) {
-        if (mostTasks <= value) {
+    for (const [key, value] of Object.entries(employees)) {
+        if (mostTasks < value) {
             mostTasks = value;
         }
+
         if (value === mostTasks) {
-            indexOfBestEmploy = values.indexOf(value);
+            bestEmployee = key;
         }
     }
 
-    console.log(mostTasks);
-    console.log(indexOfBestEmploy);
-    console.log(keys[indexOfBestEmploy]);
+    return bestEmployee;
 };
 
 const firstEmployeesTeam = {

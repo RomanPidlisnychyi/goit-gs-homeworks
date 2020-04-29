@@ -6,21 +6,16 @@ const products = [
 ];
 
 const getAllPropValues = function(arr, prop) {
-    let indexOfFindProp;
     let result = [];
 
-    for (let i of arr) {
-        const keys = Object.keys(i);
-        for (const key of keys) {
+    for (const i of arr) {
+        for (const key of Object.keys(i)) {
             if (prop === key) {
-                indexOfFindProp = keys.indexOf(key);
+                result.push(i[key]);
             }
         }
-        const values = Object.values(i);
-        if (indexOfFindProp >= 0) {
-            result.push(values[indexOfFindProp]);
-        }
     }
+
     return result;
 };
 
