@@ -23,19 +23,17 @@ class Car {
     }
 
     accelerate(value) {
-        return value + this.speed < this.maxSpeed ?
-            (this.speed += value) :
-            'Машина не может ехать так быстро';
+        value + this.speed < this.maxSpeed ? (this.speed += value) : this.maxSpeed;
     }
 
     decelerate(value) {
-        return this.speed - value > 0 ? (this.speed -= value) : (this.speed = 0);
+        this.speed - value > 0 ? (this.speed -= value) : (this.speed = 0);
     }
 
     drive(hours) {
-        return this.isOn ?
+        this.isOn ?
             (this.distance = this.distance + hours * this.speed) :
-            'Машина не заведена';
+            this.distance;
     }
 }
 
