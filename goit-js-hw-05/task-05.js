@@ -23,21 +23,25 @@ class Car {
     }
 
     accelerate(value) {
-        value + this.speed < this.maxSpeed ? (this.speed += value) : this.maxSpeed;
+        this.speed =
+            value + this.speed < this.maxSpeed ?
+            (this.speed += value) :
+            this.maxSpeed;
     }
 
     decelerate(value) {
-        this.speed - value > 0 ? (this.speed -= value) : (this.speed = 0);
+        this.speed = this.speed - value > 0 ? (this.speed -= value) : 0;
     }
 
     drive(hours) {
-        this.isOn ?
-            (this.distance = this.distance + hours * this.speed) :
+        this.distance = this.isOn ?
+            this.distance + hours * this.speed :
             this.distance;
     }
 }
 
 const mustang = new Car({ maxSpeed: 200, price: 2000 });
+//
 
 mustang.turnOn();
 mustang.accelerate(50);
