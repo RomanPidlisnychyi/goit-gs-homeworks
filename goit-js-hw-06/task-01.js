@@ -86,70 +86,45 @@ const users = [{
 
 //      ----Задание 1----
 const getUserNames = users => {
-    const userName = [];
-    users.map(function(user) {
-        userName.push(user.name);
+    return users.map(function(user) {
+        return user.name;
     });
-    return userName;
 };
 
 console.log(getUserNames(users));
 
 //      ----Задание 2----
 const getUsersWithEyeColor = (users, color) => {
-    const needEyeColor = [];
-    users.filter(function(user) {
-        if (user.eyeColor === color) {
-            needEyeColor.push(user);
-        }
+    return users.filter(function(user) {
+        return user.eyeColor === color;
     });
-
-    return needEyeColor;
 };
 
 console.log(getUsersWithEyeColor(users, 'blue'));
 
 //      ----Задание 3----
 const getUsersWithGender = (users, gender) => {
-    const userWithGender = [];
-
-    users.filter(function(user) {
-        if (user.gender === gender) {
-            userWithGender.push(user.name);
-        }
+    return users.filter(function(user) {
+        return user.gender === gender;
     });
-
-    return userWithGender;
 };
 
 console.log(getUsersWithGender(users, 'male'));
 
 //      ----Задание 4----
 const getInactiveUsers = users => {
-    const inactiveUsers = [];
-
-    users.filter(function(user) {
-        if (!user.isActive) {
-            inactiveUsers.push(user);
-        }
+    return users.filter(function(user) {
+        return !user.isActive;
     });
-
-    return inactiveUsers;
 };
 
 console.log(getInactiveUsers(users));
 
 //      ----Задание 5----
 const getUserWithEmail = (users, email) => {
-    let findUserWithEmail;
-
-    users.find(function(user) {
-        if (user.email === email) {
-            findUserWithEmail = user;
-        }
+    return users.find(function(user) {
+        return user.email === email;
     });
-
-    return findUserWithEmail;
 };
 
 console.log(getUserWithEmail(users, 'shereeanthony@kog.com'));
@@ -157,15 +132,9 @@ console.log(getUserWithEmail(users, 'elmahead@omatom.com'));
 
 //      ----Задание 6----
 const getUsersWhithAge = (users, min, max) => {
-    const usersWithAge = [];
-
-    users.filter(function(user) {
-        if (user.age >= min && user.age <= max) {
-            usersWithAge.push(user);
-        }
+    return users.filter(function(user) {
+        return user.age >= min && user.age <= max;
     });
-
-    return usersWithAge;
 };
 
 console.log(getUsersWhithAge(users, 20, 30));
@@ -173,27 +142,22 @@ console.log(getUsersWhithAge(users, 30, 40));
 
 //      ----Задание 7----
 const calculateTotalBalance = users => {
-    let totalBalance;
-    users.reduce(function(acc, user) {
-        return (totalBalance = acc + user.balance);
+    return users.reduce(function(acc, user) {
+        return acc + user.balance;
     }, 0);
-
-    return totalBalance;
 };
 
 console.log(calculateTotalBalance(users));
 
 //      ----Задание 8----
 const getUsersWhithFriend = (users, friendName) => {
-    const findUsersWithFriend = [];
-
-    users.filter(function(user) {
-        if (user.friends.includes(friendName)) {
-            findUsersWithFriend.push(user.name);
-        }
-    });
-
-    return findUsersWithFriend;
+    return users
+        .filter(function(user) {
+            return user.friends.includes(friendName);
+        })
+        .map(function(user) {
+            return user.name;
+        });
 };
 
 console.log(getUsersWhithFriend(users, 'Briana Decker'));
@@ -201,37 +165,27 @@ console.log(getUsersWhithFriend(users, 'Goldie Gentry'));
 
 //      ----Задание 9----
 const getNamesSortedByFriendsCount = users => {
-    const namesSortedByFriendsCount = users
+    return users
         .sort(function(prevUser, nextUser) {
             return prevUser.friends.length - nextUser.friends.length;
         })
         .map(function(user) {
             return user.name;
         });
-
-    return namesSortedByFriendsCount;
 };
 
 console.log(getNamesSortedByFriendsCount(users));
 
 //      ----Задание 10----
 const getSortedUniqueSkills = users => {
-    const sortedUniqueSkills = users
+    return users
         .reduce(function(acc, user) {
-            acc.push(...user.skills);
-
-            return acc;
+            return [...acc, ...user.skills];
         }, [])
-        .reduce(function(acc, skill) {
-            if (!acc.includes(skill)) {
-                acc.push(skill);
-            }
-
-            return acc;
+        .filter(function(element, index, array) {
+            return array.indexOf(element) === index;
         }, [])
         .sort();
-
-    return sortedUniqueSkills;
 };
 
 console.log(getSortedUniqueSkills(users));
