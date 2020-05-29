@@ -107,8 +107,8 @@ const getInactiveUsers = users => users.filter(user => !user.isActive);
 console.log(getInactiveUsers(users));
 
 //      ----Задание 5----
-const getUserWithEmail = (users, { email }) =>
-    users.find(user => email === email);
+const getUserWithEmail = (users, email) =>
+    users.find(user => email === user.email);
 
 console.log(getUserWithEmail(users, 'shereeanthony@kog.com'));
 console.log(getUserWithEmail(users, 'elmahead@omatom.com'));
