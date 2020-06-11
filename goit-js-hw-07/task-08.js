@@ -28,12 +28,45 @@ function onClickRender() {
     console.log(boxContainer);
 
     boxContainer.forEach((element, index, array) => {
+        console.log(element);
+        console.log(index);
+        console.log(array);
         if (index + 1 < array.length) {
             boxesRef.appendChild(array[index + 1]);
             array[index + 1].appendChild(element);
         }
     });
 }
+
+// function onClickRender() {
+//     let number = Number(inputRef.value);
+//    console.log(createBoxes(number));
+// }
+
+// function createBoxes(n) {
+//     const initSize = 30;
+//     const step = 10;
+//     const boxes = Array(n)
+//     .fill('')
+//     .map(
+//     (e, i, arr) =>
+//     `<div style="width: ${initSize +
+//     step * i}px; height: ${initSize +
+//     step * i}px; background-color: ${get_random_color()};"></div>`
+//     );
+//     console.log(boxes);
+
+//     boxes.forEach((element, index, array) => {
+//         console.log(element);
+//         console.log(index);
+//         console.log(array);
+
+//         if (index + 1 < array.length) {
+//             boxesRef.appendChild(array[index + 1]);
+//             array[index + 1].appendChild(element);
+//         }
+//     });
+//     }
 
 function onClickDestroy() {
     boxContainer.length = 0;
