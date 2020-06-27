@@ -22,8 +22,11 @@ savedThemeClass();
 refs.switchInputRef.addEventListener('change', themeSwitchHandler);
 
 function themeSwitchHandler(event) {
-    const defaultTheme = event.path[0].checked;
-    localStorage.setItem('theme', defaultTheme ? theme.DARK : theme.LIGHT);
+    // const defaultTheme = event.path[0].checked;
+    localStorage.setItem(
+        'theme',
+        refs.switchInputRef.checked ? theme.DARK : theme.LIGHT,
+    );
     addThemeClass();
 }
 
