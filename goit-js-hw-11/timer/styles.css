@@ -1,0 +1,27 @@
+.wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.timer {
+    display: flex;
+    width: 650px;
+    justify-content: space-around;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.value {
+    font-size: 72px;
+}
+
+.label {
+    text-transform: uppercase;
+}
