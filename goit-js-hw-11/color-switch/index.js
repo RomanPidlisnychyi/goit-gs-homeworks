@@ -4,7 +4,7 @@ const refs = {
     body: document.querySelector('body'),
 };
 
-refs.body.dataset.action = 'false';
+refs.body.dataset.action = false;
 
 const colors = [
     '#FFFFFF',
@@ -21,15 +21,21 @@ const randomIntegerFromInterval = (min, max) => {
 
 let timerId;
 
-refs.startBtn.addEventListener('click', onStart);
-refs.stopBtn.addEventListener('click', onStop);
+refs.body.addEventListener('click', event => {
+    if (event.target === refs.startBtn) {
+        onStart();
+    }
+    if (event.target === refs.stopBtn) {
+        onStop();
+    }
+});
 
 function onStart() {
     if (refs.body.dataset.action === 'true') {
         return;
     }
 
-    refs.body.dataset.action = 'true';
+    refs.body.dataset.action = true;
 
     timerId = setInterval(() => {
         const indexOurColor = randomIntegerFromInterval(0, colors.length - 1);
@@ -39,5 +45,5 @@ function onStart() {
 
 function onStop() {
     clearInterval(timerId);
-    refs.body.dataset.action = 'false';
+    refs.body.dataset.action = false;
 }
