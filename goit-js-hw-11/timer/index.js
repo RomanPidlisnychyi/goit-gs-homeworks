@@ -54,7 +54,7 @@ class CountdownTimer {
         const time = finishedTimerDate - currentDate;
 
         if (finishedTimerDate < currentDate) {
-            return;
+            return 0;
         }
         return time;
     }
