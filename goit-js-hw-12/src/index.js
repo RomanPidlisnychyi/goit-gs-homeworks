@@ -22,6 +22,7 @@ function onInputQuery(element) {
     const basedUrl = 'https://restcountries.eu/rest/v2';
 
     if (query === '') {
+        refs.country.innerHTML = '';
         return;
     }
 
