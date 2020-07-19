@@ -52,8 +52,6 @@ function getImages(response) {
     const result = JSON.parse(response);
     const images = result.hits;
 
-    console.log(images);
-
     if (images.length === 0) {
         lastPage();
         return;
@@ -124,7 +122,6 @@ gallery.addEventListener('click', event => {
 `);
 
     instance.show();
-    console.log(event.target.alt);
 });
 
 form.addEventListener('keydown', e => {
@@ -147,8 +144,6 @@ form.addEventListener('keydown', e => {
         proxyEl.innerHTML = markup;
 
         const items = proxyEl.querySelectorAll('.grid-sizer');
-
-        console.log(items);
 
         gallery.append(...items);
 
