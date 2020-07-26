@@ -174,7 +174,6 @@ function onModalClick(event) {
 }
 
 function listener(event) {
-    console.log(event.target);
     if (event.code === 'ArrowLeft' && refs.modalImage.dataset.index > 0) {
         prevImageOnGallery();
     }
