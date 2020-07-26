@@ -13,13 +13,15 @@ import imagesLoaded from 'imagesloaded';
 const refs = {
     body: document.querySelector('body'),
     form: document.querySelector('#search-form'),
-    gallery: document.querySelector('.gallery'),
     galleryWrap: document.querySelector('.gallery-wrap'),
-    nextPageBtn: document.querySelector('button[name="load-more"]'),
+    gallery: document.querySelector('.gallery'),
     sentinel: document.querySelector('.sentinel'),
     modal: document.querySelector('.js-lightbox'),
     modalImage: document.querySelector('.lightbox__image'),
     modalInfo: document.querySelector('.lightbox__info'),
+    closeModalBtn: document.querySelector('button[data-action="close-lightbox"]'),
+    prevImageBtn: document.querySelector('button[data-action="prev-image"]'),
+    nextImageBtn: document.querySelector('button[data-action="next-image"]'),
 };
 
 defaults.styling = 'material';
@@ -156,13 +158,23 @@ function onGalleryClick(event) {
 }
 
 function onModalClick(event) {
-    if (event.target.nodeName === 'BUTTON' || event.target.nodeName !== 'IMG') {
+    if (
+        event.target === refs.closeModalBtn ||
+        (event.target.nodeName !== 'IMG' && event.target.nodeName !== 'BUTTON')
+    ) {
         removeModalClass();
         onModalClose();
+    }
+    if (event.target === refs.prevImageBtn) {
+        prevImageOnGallery();
+    }
+    if (event.target === refs.nextImageBtn) {
+        nextImageOnGallery();
     }
 }
 
 function listener(event) {
+    console.log(event.target);
     if (event.code === 'ArrowLeft' && refs.modalImage.dataset.index > 0) {
         prevImageOnGallery();
     }
@@ -210,19 +222,31 @@ function removeModalClass() {
 }
 
 function prevImageOnGallery() {
-    const index = Number(refs.modalImage.dataset.index);
-    const images = refs.gallery.querySelectorAll('img');
-    const prevImageSrc = images[index - 1].dataset.source;
-    refs.modalImage.src = prevImageSrc;
-    refs.modalImage.dataset.index = index - 1;
-    refs.modalInfo.textContent = `${index}/${images.length}`;
+    refs.modalImage.src = '';
+    refs.modalImage.classList.remove('slidein_prev');
+    refs.modalImage.classList.remove('slidein_next');
+    setTimeout(() => {
+        refs.modalImage.classList.add('slidein_prev');
+        const index = Number(refs.modalImage.dataset.index);
+        const images = refs.gallery.querySelectorAll('img');
+        const prevImageSrc = images[index - 1].dataset.source;
+        refs.modalImage.src = prevImageSrc;
+        refs.modalImage.dataset.index = index - 1;
+        refs.modalInfo.textContent = `${index}/${images.length}`;
+    }, 1);
 }
 
 function nextImageOnGallery() {
-    const index = Number(refs.modalImage.dataset.index);
-    const images = refs.gallery.querySelectorAll('img');
-    const nextImageSrc = images[index + 1].dataset.source;
-    refs.modalImage.src = nextImageSrc;
-    refs.modalImage.dataset.index = index + 1;
-    refs.modalInfo.textContent = `${index + 2}/${images.length}`;
+    refs.modalImage.src = '';
+    refs.modalImage.classList.remove('slidein_next');
+    refs.modalImage.classList.remove('slidein_prev');
+    setTimeout(() => {
+        refs.modalImage.classList.add('slidein_next');
+        const index = Number(refs.modalImage.dataset.index);
+        const images = refs.gallery.querySelectorAll('img');
+        const nextImageSrc = images[index + 1].dataset.source;
+        refs.modalImage.src = nextImageSrc;
+        refs.modalImage.dataset.index = index + 1;
+        refs.modalInfo.textContent = `${index + 2}/${images.length}`;
+    }, 1);
 }

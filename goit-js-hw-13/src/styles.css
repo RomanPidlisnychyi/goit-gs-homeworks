@@ -24,17 +24,6 @@
     margin: 25px auto;
 }
 
-.modal-content {
-    margin: 0 auto;
-    width: fit-content;
-    background-color: ivory;
-}
-
-.modal-img {
-    display: block;
-    margin: 0 auto;
-}
-
 li {
     list-style: none;
 }
@@ -129,20 +118,17 @@ li {
     margin: 0;
     border: none;
     border-radius: 50%;
-    background-color: transparent;
     color: #fff;
     cursor: pointer;
-    transition: background-color 200ms ease-in-out;
+    transition: background-color 200ms ease-in-out, background-image 200ms ease-in-out;
     outline: none;
-    background-image: url('images/icon-close.svg');
-    background-position: center;
-    background-size: 60%;
-    background-repeat: no-repeat;
+    background: url('images/icon-close.svg') center / 60% no-repeat transparent;
 }
 
 .lightbox__button:hover,
 .lightbox__button:focus {
     background-color: rgba(0, 0, 0, 0.5);
+    background-image: url('images/icon-close-on-hover.svg');
 }
 
 .lightbox__info {
@@ -152,4 +138,78 @@ li {
     top: 37px;
     left: 100px;
     color: #999;
+}
+
+.lightbox__button__prev {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 100px;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    transition: background-image 200ms ease-in-out;
+    outline: none;
+    background: url('images/circle-left.svg') center no-repeat transparent;
+}
+
+.lightbox__button__prev:hover {
+    background-image: url('images/circle-left-on-hover.svg');
+}
+
+.lightbox__button__next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 100px;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    transition: background-image 200ms ease-in-out;
+    outline: none;
+    background: url('images/circle-right.svg') center no-repeat transparent;
+}
+
+.lightbox__button__next:hover {
+    background-image: url('images/circle-right-on-hover.svg');
+}
+
+.slidein_prev {
+    position: relative;
+    animation-duration: 0.5s;
+    animation-name: slidein_prev;
+    animation-iteration-count: 1;
+    animation-direction: alternate;
+}
+
+@keyframes slidein_prev {
+    from {
+        right: 1500px;
+    }
+    to {
+        right: 0;
+    }
+}
+
+.slidein_next {
+    position: relative;
+    animation-duration: 0.5s;
+    animation-name: slidein_next;
+    animation-iteration-count: 1;
+    animation-direction: alternate;
+}
+
+@keyframes slidein_next {
+    from {
+        left: 1500px;
+    }
+    to {
+        left: 0;
+    }
 }
