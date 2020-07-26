@@ -22,8 +22,6 @@ const refs = {
     modalInfo: document.querySelector('.lightbox__info'),
 };
 
-let indexCount = 0;
-
 defaults.styling = 'material';
 defaults.icons = 'material';
 defaults.delay = 2000;
@@ -57,13 +55,7 @@ const masonryInstance = new Masonry(refs.gallery, {
 
 const createGalleryList = async() => {
     const images = await apiService.get();
-    const markup = images
-        .map(image => {
-            image.index = indexCount;
-            indexCount += 1;
-            return cardTemplate(image);
-        })
-        .join('');
+    const markup = images.map(image => cardTemplate(image)).join('');
 
     const imageList = document.createElement('ul');
     imageList.innerHTML = markup;
@@ -94,18 +86,8 @@ function onQuery(event) {
     if (event.key === 'Enter' && apiService.query !== '') {
         event.preventDefault();
         apiService.page = 1;
-        indexCount = 0;
         apiService.last_page = false;
         refs.gallery.innerHTML = '';
-
-        if (typeof refs.modalWrap === 'object') {
-            removeModal();
-        }
-        cteateModal();
-
-        refs.gallery.addEventListener('click', onGalleryClick);
-
-        refs.modal.addEventListener('click', onModalClick);
 
         createGridSizer();
 
@@ -118,6 +100,10 @@ function onQuery(event) {
         event.target.value = '';
     }
 }
+
+refs.gallery.addEventListener('click', onGalleryClick);
+
+refs.modal.addEventListener('click', onModalClick);
 
 function createGridSizer() {
     const columnValue = [1, 2, 3];
@@ -180,9 +166,10 @@ function listener(event) {
     if (event.code === 'ArrowLeft' && refs.modalImage.dataset.index > 0) {
         prevImageOnGallery();
     }
+
     if (
         event.code === 'ArrowRight' &&
-        refs.modalImage.dataset.index < indexCount - 1
+        refs.modalImage.dataset.index < refs.gallery.children.length - 4
     ) {
         nextImageOnGallery();
     }
@@ -201,12 +188,18 @@ function onModalClose() {
 }
 
 function addModalClass() {
+    const images = refs.gallery.querySelectorAll('img');
+    let index;
     const src = event.target.dataset.source;
-    const index = event.target.dataset.index;
     refs.modal.classList.add('is-open');
     refs.modalImage.src = src;
+    images.forEach((image, i) => {
+        if (image.dataset.source === refs.modalImage.src) {
+            index = i;
+        }
+    });
+
     refs.modalImage.dataset.index = index;
-    const images = refs.gallery.querySelectorAll('img');
     refs.modalInfo.textContent = `${Number(index) + 1}/${images.length}`;
 }
 
@@ -232,27 +225,4 @@ function nextImageOnGallery() {
     refs.modalImage.src = nextImageSrc;
     refs.modalImage.dataset.index = index + 1;
     refs.modalInfo.textContent = `${index + 2}/${images.length}`;
-}
-
-function cteateModal() {
-    refs.modalWrap = document.createElement('div');
-    refs.modalWrap.classList.add('modalWrap');
-    refs.modalWrap.innerHTML = `<div class="lightbox js-lightbox">
-    <div class="lightbox__overlay"></div>
-
-    <div class="lightbox__content">
-        <img class="lightbox__image" src="/" alt="" />
-    </div>
-
-    <button type="button" class="lightbox__button" data-action="close-lightbox"></button>
-    <span class="lightbox__info"></span>
-</div>`;
-    refs.body.appendChild(refs.modalWrap);
-    refs.modal = document.querySelector('.js-lightbox');
-    refs.modalImage = document.querySelector('.lightbox__image');
-    refs.modalInfo = document.querySelector('.lightbox__info');
-}
-
-function removeModal() {
-    refs.body.removeChild(refs.modalWrap);
 }
