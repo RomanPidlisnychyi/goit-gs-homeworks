@@ -146,8 +146,6 @@ function onControlClick(event) {
     if (event.target !== refs.createTimerBtn) {
         timers.forEach((e, i) => {
             if (e.selector === event.target.dataset.close) {
-                console.log(timers);
-                console.log(event.target.dataset.close);
                 e.stop();
                 timers.splice(i, 1);
             }
