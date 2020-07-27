@@ -7,6 +7,7 @@
 }
 
 .timer {
+    position: relative;
     display: flex;
     width: 650px;
     justify-content: space-around;
@@ -24,4 +25,29 @@
 
 .label {
     text-transform: uppercase;
+}
+
+.close__timer__button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 200ms ease-in-out, background-image 200ms ease-in-out;
+    outline: none;
+    background: url('images/icon-close.svg') center / 60% no-repeat transparent;
+}
+
+.close__timer__button:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    background-image: url('images/icon-close-on-hover.svg');
 }

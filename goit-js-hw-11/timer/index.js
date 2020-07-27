@@ -2,6 +2,7 @@ class CountdownTimer {
     constructor(selector, targetDate) {
         this.selector = selector;
         this.targetDate = targetDate;
+        this.isRaning = true;
         this.days = Math.floor(this.genarateTime() / (1000 * 60 * 60 * 24));
         this.hours = this.pad(
             Math.floor(
@@ -36,14 +37,24 @@ class CountdownTimer {
               <span class="value" data-value="secs-${this.selector}">${this.secs}</span>
               <span class="label">Seconds</span>
             </div>
+            <button type="button" name="close" class="close__timer__button" data-close="${this.selector}"></button>
           </div>`;
     }
     isertTimetToDOM() {
-        const wrap = document.querySelector('.wrap');
-        wrap.insertAdjacentHTML('beforeend', this.createTimerHTML());
+        if (this.isRaning) {
+            const wrap = document.querySelector('.wrap');
+            wrap.insertAdjacentHTML('beforeend', this.createTimerHTML());
+        }
     }
     run() {
+        this.isRaning = true;
         window.addEventListener('DOMContentLoaded', this.setTimer(this));
+    }
+    stop() {
+        this.isRaning = false;
+        window.removeEventListener('DOMContentLoaded', this.setTimer(this));
+        const wrap = document.querySelector('.wrap');
+        wrap.removeChild(wrap.querySelector(`#${this.selector}`));
     }
 
     genarateTime() {
@@ -66,6 +77,9 @@ class CountdownTimer {
         }, 1000);
     }
     apdateClockFace(time) {
+        if (!this.isRaning) {
+            return;
+        }
         const days = Math.floor(time / (1000 * 60 * 60 * 24));
 
         const hours = this.pad(
@@ -102,8 +116,51 @@ class CountdownTimer {
     }
 }
 
-const countdownTimer = new CountdownTimer('#timer-1', 'July 17, 2020');
-countdownTimer.run();
+const refs = {
+    wrap: document.querySelector('.wrap'),
+    control: document.querySelector('.control'),
+    timerNameInput: document.querySelector('input[data-action="name"]'),
+    timerDateInput: document.querySelector('input[data-action="date"]'),
+    createTimerBtn: document.querySelector('button[data-action="create"]'),
+};
 
-const countdownTimer1 = new CountdownTimer('#timer-2', 'February 23, 2021');
-countdownTimer1.run();
+refs.wrap.addEventListener('click', onControlClick);
+refs.control.addEventListener('change', onControlInputChange);
+
+const timers = [];
+const timer = {};
+
+function onControlClick(event) {
+    if (event.target.nodeName !== 'BUTTON') {
+        return;
+    }
+
+    if (event.target === refs.createTimerBtn) {
+        const newTimer = new CountdownTimer(`${timer.name}`, `${timer.value}`);
+        newTimer.run();
+        refs.timerNameInput.value = '';
+        refs.timerDateInput.value = '';
+        timers.push(newTimer);
+    }
+
+    if (event.target !== refs.createTimerBtn) {
+        timers.forEach((e, i) => {
+            if (e.selector === event.target.dataset.close) {
+                console.log(timers);
+                console.log(event.target.dataset.close);
+                e.stop();
+                timers.splice(i, 1);
+            }
+        });
+    }
+}
+
+function onControlInputChange(event) {
+    if (event.target === refs.timerNameInput) {
+        timer.name = event.target.value;
+    }
+
+    if (event.target === refs.timerDateInput) {
+        timer.value = event.target.value;
+    }
+}
