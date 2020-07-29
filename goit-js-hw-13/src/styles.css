@@ -105,6 +105,42 @@ li {
     transform: scale(1);
 }
 
+
+/* .lightbox__button {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: -50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 200ms ease-in-out, background-image 200ms ease-in-out;
+    outline: none;
+    background: url('images/icon-close.svg') center / 60% no-repeat transparent;
+}
+
+.lightbox__button:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    background-image: url('images/icon-close-on-hover.svg');
+}
+
+.lightbox__info {
+    position: absolute;
+    font-size: 16px;
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    top: 15px;
+    left: -45px;
+    color: #999;
+} */
+
 .lightbox__button {
     position: absolute;
     top: 20px;
@@ -125,8 +161,7 @@ li {
     background: url('images/icon-close.svg') center / 60% no-repeat transparent;
 }
 
-.lightbox__button:hover,
-.lightbox__button:focus {
+.lightbox__button:hover {
     background-color: rgba(0, 0, 0, 0.5);
     background-image: url('images/icon-close-on-hover.svg');
 }
@@ -144,40 +179,38 @@ li {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    left: 100px;
-    width: 48px;
-    height: 48px;
+    left: 0;
+    width: 40%;
+    height: 100%;
     border: none;
-    border-radius: 50%;
-    color: #fff;
     cursor: pointer;
-    transition: background-image 200ms ease-in-out;
+    transition: opacity 200ms ease-in-out;
+    opacity: 0;
     outline: none;
-    background: url('images/circle-left.svg') center no-repeat transparent;
+    background: url('images/circle-left-on-hover.svg') left 5% bottom 50% no-repeat transparent;
 }
 
 .lightbox__button__prev:hover {
-    background-image: url('images/circle-left-on-hover.svg');
+    opacity: 1;
 }
 
 .lightbox__button__next {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    right: 100px;
-    width: 48px;
-    height: 48px;
+    right: 0;
+    width: 40%;
+    height: 100%;
     border: none;
-    border-radius: 50%;
-    color: #fff;
     cursor: pointer;
-    transition: background-image 200ms ease-in-out;
+    transition: opacity 200ms ease-in-out;
+    opacity: 0;
     outline: none;
-    background: url('images/circle-right.svg') center no-repeat transparent;
+    background: url('images/circle-right-on-hover.svg') right 5% bottom 50% no-repeat transparent;
 }
 
 .lightbox__button__next:hover {
-    background-image: url('images/circle-right-on-hover.svg');
+    opacity: 1;
 }
 
 .slidein_prev {
@@ -203,6 +236,11 @@ li {
     animation-name: slidein_next;
     animation-iteration-count: 1;
     animation-direction: alternate;
+}
+
+.lightbox__image__wrap {
+    position: relative;
+    width: fit-content;
 }
 
 @keyframes slidein_next {

@@ -165,10 +165,13 @@ function onModalClick(event) {
         removeModalClass();
         onModalClose();
     }
-    if (event.target === refs.prevImageBtn) {
+    if (event.target === refs.prevImageBtn && refs.modalImage.dataset.index > 0) {
         prevImageOnGallery();
     }
-    if (event.target === refs.nextImageBtn) {
+    if (
+        event.target === refs.nextImageBtn &&
+        refs.modalImage.dataset.index < refs.gallery.children.length - 4
+    ) {
         nextImageOnGallery();
     }
 }
