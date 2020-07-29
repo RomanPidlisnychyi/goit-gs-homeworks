@@ -51,3 +51,9 @@
     background-color: rgba(0, 0, 0, 0.5);
     background-image: url('images/icon-close-on-hover.svg');
 }
+
+.id:invalid:focus {
+    border-color: red;
+    border-radius: 3px;
+    outline: none;
+}

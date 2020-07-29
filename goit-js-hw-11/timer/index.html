@@ -11,9 +11,9 @@
 <body>
     <div class="wrap">
         <div class="control">
-            <input type="text" data-action="name" placeholder="enter timer id..." />
-            <input type="date" data-action="date" placeholder="select current date" />
-            <button data-action="create">Create new timer</button>
+            <input class="id" type="text" data-action="name" placeholder="enter timer id..." pattern="[A-Za-z]+|[A-Za-z]+[0-9]+|[A-Za-z]+[0-9]+[A-Za-z]+" />
+            <input class="date" type="date" data-action="date" placeholder="select current date" />
+            <button data-action="create" disabled>Create new timer</button>
         </div>
     </div>
     <script src="index.js"></script>

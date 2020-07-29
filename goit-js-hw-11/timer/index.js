@@ -125,7 +125,7 @@ const refs = {
 };
 
 refs.wrap.addEventListener('click', onControlClick);
-refs.control.addEventListener('change', onControlInputChange);
+refs.control.addEventListener('input', onControlInput);
 
 const timers = [];
 const timer = {};
@@ -140,6 +140,7 @@ function onControlClick(event) {
         newTimer.run();
         refs.timerNameInput.value = '';
         refs.timerDateInput.value = '';
+        refs.createTimerBtn.disabled = true;
         timers.push(newTimer);
     }
 
@@ -153,12 +154,41 @@ function onControlClick(event) {
     }
 }
 
-function onControlInputChange(event) {
+function onControlInput(event) {
+    let timerIdExist = false;
+
+    const timersId = refs.wrap.querySelectorAll('.timer');
+
+    timersId.forEach(e => {
+        if (e.id === refs.timerNameInput.value) {
+            timerIdExist = true;
+        } else {
+            timerIdExist = false;
+        }
+    });
+
     if (event.target === refs.timerNameInput) {
         timer.name = event.target.value;
     }
 
     if (event.target === refs.timerDateInput) {
         timer.value = event.target.value;
+    }
+
+    if (!refs.timerNameInput.validity.valid ||
+        refs.timerNameInput.value === '' ||
+        Date.parse(refs.timerDateInput.value) < Date.now() ||
+        timerIdExist
+    ) {
+        refs.createTimerBtn.disabled = true;
+    }
+
+    if (
+        refs.timerNameInput.validity.valid &&
+        refs.timerNameInput.value !== '' &&
+        Date.parse(refs.timerDateInput.value) > Date.now() &&
+        !timerIdExist
+    ) {
+        refs.createTimerBtn.disabled = false;
     }
 }
