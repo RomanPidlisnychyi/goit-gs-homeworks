@@ -17,7 +17,9 @@ const refs = {
     gallery: document.querySelector('.gallery'),
     sentinel: document.querySelector('.sentinel'),
     modal: document.querySelector('.js-lightbox'),
+    modalImagePrev: document.querySelector('.lightbox__image__prev'),
     modalImage: document.querySelector('.lightbox__image'),
+    modalImageNext: document.querySelector('.lightbox__image__next'),
     modalInfo: document.querySelector('.lightbox__info'),
     closeModalBtn: document.querySelector('button[data-action="close-lightbox"]'),
     prevImageBtn: document.querySelector('button[data-action="prev-image"]'),
@@ -206,6 +208,7 @@ function addModalClass() {
     let index;
     const src = event.target.dataset.source;
     refs.modal.classList.add('is-open');
+    refs.body.classList.add('scroll_off');
     refs.modalImage.src = src;
     images.forEach((image, i) => {
         if (image.dataset.source === refs.modalImage.src) {
@@ -215,26 +218,54 @@ function addModalClass() {
 
     refs.modalImage.dataset.index = index;
     refs.modalInfo.textContent = `${Number(index) + 1}/${images.length}`;
+
+    if (index === 0) {
+        refs.modalImagePrev.src = images[index].dataset.source;
+        refs.prevImageBtn.classList.add('off');
+    }
+
+    if (index > 0) {
+        refs.modalImagePrev.src = images[index - 1].dataset.source;
+    }
+
+    if (index === images.length - 1) {
+        refs.modalImageNext.src = images[index].dataset.source;
+        refs.nextImageBtn.classList.add('off');
+    }
+
+    if (index < images.length - 1) {
+        refs.modalImageNext.src = images[index + 1].dataset.source;
+    }
 }
 
 function removeModalClass() {
     refs.modal.classList.remove('is-open');
+    refs.body.classList.remove('scroll_off');
     refs.modalImage.src = '/';
     refs.modalImage.dataset.index = '';
 }
 
 function prevImageOnGallery() {
+    const index = Number(refs.modalImage.dataset.index);
     refs.modalImage.src = '';
     refs.modalImage.classList.remove('slidein_prev');
     refs.modalImage.classList.remove('slidein_next');
+    refs.nextImageBtn.classList.remove('off');
+    if (index === 1) {
+        refs.prevImageBtn.classList.add('off');
+    } else {
+        refs.prevImageBtn.classList.remove('off');
+    }
     setTimeout(() => {
         refs.modalImage.classList.add('slidein_prev');
-        const index = Number(refs.modalImage.dataset.index);
         const images = refs.gallery.querySelectorAll('img');
         const prevImageSrc = images[index - 1].dataset.source;
         refs.modalImage.src = prevImageSrc;
         refs.modalImage.dataset.index = index - 1;
         refs.modalInfo.textContent = `${index}/${images.length}`;
+        if (index > 1) {
+            refs.modalImagePrev.src = images[index - 2].dataset.source;
+        }
     }, 1);
 }
 
@@ -242,13 +273,23 @@ function nextImageOnGallery() {
     refs.modalImage.src = '';
     refs.modalImage.classList.remove('slidein_next');
     refs.modalImage.classList.remove('slidein_prev');
+    refs.prevImageBtn.classList.remove('off');
+    const index = Number(refs.modalImage.dataset.index);
+    const images = refs.gallery.querySelectorAll('img');
+    if (index === images.length - 2) {
+        refs.nextImageBtn.classList.add('off');
+    } else {
+        refs.nextImageBtn.classList.remove('off');
+    }
+
     setTimeout(() => {
         refs.modalImage.classList.add('slidein_next');
-        const index = Number(refs.modalImage.dataset.index);
-        const images = refs.gallery.querySelectorAll('img');
         const nextImageSrc = images[index + 1].dataset.source;
         refs.modalImage.src = nextImageSrc;
         refs.modalImage.dataset.index = index + 1;
         refs.modalInfo.textContent = `${index + 2}/${images.length}`;
+        if (index < images.length - 2) {
+            refs.modalImageNext.src = images[index + 2].dataset.source;
+        }
     }, 1);
 }
