@@ -217,12 +217,12 @@ li {
 }
 
 .lightbox__image__wrap__prev {
-    position: relative;
+    position: absolute;
     left: -1500px;
 }
 
 .lightbox__image__wrap__next {
-    position: relative;
+    position: absolute;
     right: -1500px;
 }
 
